@@ -17,46 +17,51 @@
     <header class="text-center fs-1 fw-bold">ПРИЁМ ЗАЯВОК НА ПЕЧАТЬ</header>
 
     <main class="me-3 ms-3">
-        <form action="process.php" method="post">
+        <form action="process.php" method="post" enctype="multipart/form-data">
             <div class="mb-3">
-                <label for="customer_name" class="form-label">ФИО:</label>
+                <label for="customer_name" class="form-label">ФИО: <span class="text-danger">*</span></label>
                 <div class="col-6">
-                    <input type="text" name="customer_name" id="customer_name" class="form-control">
+                    <input type="text" name="customer_name" id="customer_name" class="form-control"
+                        placeholder="Иванов Иван Иванович" required>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="tel_num" class="form-label">Номер телефона:</label>
+                <label for="tel_num" class="form-label">Номер телефона: <span class="text-danger">*</span></label>
                 <div class="col-6">
-                    <input type="text" name="tel_num" id="tel_num" class="form-control">
+                    <input type="tel" name="tel_num" id="tel_num" class="form-control" placeholder="+375290000000"
+                        required>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="file" class="form-label">Файл:</label>
+                <label for="file" class="form-label">Файл для печати (word, pdf, png, jpeg): <span
+                        class="text-danger">*</span></label>
                 <div class="col-6">
-                    <input type="file" name="file" id="file" class="form-control">
+                    <input type="file" name="file" id="file" class="form-control" required>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="print_format" class="form-label">Формат печати:</label>
+                <label for="print_format" class="form-label">Формат печати: <span class="text-danger">*</span></label>
                 <div class="col-6">
-                    <input type="text" name="print_format" id="print_format" class="form-control">
+                    <input type="text" name="print_format" id="print_format" class="form-control"
+                        placeholder="ЧБ A4 / цветной A5 / фото глянец ..." required>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="copies" class="form-label">Количество копий:</label>
-                <div class="col-6">
-                    <input type="number" name="copies" id="copies" class="form-control">
+                <label for="copies" class="form-label">Количество копий: <span class="text-danger">*</span></label>
+                <div class="col-2">
+                    <input type="number" name="copies" id="copies" class="form-control" min="1" max="500" value="1" required>
                 </div>
             </div>
 
             <div>
-                <label for="pickup_date" class="form-label">Желаемая дата получения:</label>
+                <label for="pickup_date" class="form-label">Желаемая дата получения: <span
+                        class="text-danger">*</span></label>
                 <div class="col-6">
-                    <input type="date" name="pickup_date" id="pickup_date" class="form-control">
+                    <input type="date" name="pickup_date" id="pickup_date" class="form-control" required>
                 </div>
             </div>
 
@@ -73,5 +78,37 @@
         </p>
     </footer>
 </body>
+
+<script>
+    const dateEl = document.getElementById("pickup_date");
+    let date = new Date();
+    let day, month, year;
+
+    if (date.getDate() < 10) {
+        day = "0" + date.getDate();
+    } else day = date.getDate();
+
+    if (date.getMonth() + 1 < 10) {
+        month = "0" +(date.getMonth() + 1);
+    } else month = date.getMonth() + 1;
+
+    year = date.getFullYear()
+
+    dateEl.min = year + "-" + month + "-" + day;
+
+    date.setDate(date.getDate() + 14);
+
+    if (date.getDate() < 10) {
+        day = "0" + date.getDate();
+    } else day = date.getDate();
+
+    if (date.getMonth() + 1 < 10) {
+        month = "0" + (date.getMonth() + 1);
+    } else month = date.getMonth() + 1;
+
+    year = date.getFullYear();
+
+    dateEl.max = year + "-" + month + "-" + day;
+</script>
 
 </html>
