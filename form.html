@@ -22,15 +22,15 @@
                 <label for="customer_name" class="form-label">ФИО: <span class="text-danger">*</span></label>
                 <div class="col-6">
                     <input type="text" name="customer_name" id="customer_name" class="form-control"
-                        placeholder="Иванов Иван Иванович" required>
+                        maxlength="200" placeholder="Иванов Иван Иванович" required>
                 </div>
             </div>
 
             <div class="mb-3">
                 <label for="tel_num" class="form-label">Номер телефона: <span class="text-danger">*</span></label>
                 <div class="col-6">
-                    <input type="tel" name="tel_num" id="tel_num" class="form-control" placeholder="+375290000000"
-                        required>
+                    <input type="tel" name="tel_num" id="tel_num" class="form-control" maxlength="13"
+                        placeholder="+375290000000" required>
                 </div>
             </div>
 
@@ -45,7 +45,7 @@
             <div class="mb-3">
                 <label for="print_format" class="form-label">Формат печати: <span class="text-danger">*</span></label>
                 <div class="col-6">
-                    <input type="text" name="print_format" id="print_format" class="form-control"
+                    <input type="text" name="print_format" id="print_format" class="form-control" maxlength="200"
                         placeholder="ЧБ A4 / цветной A5 / фото глянец ..." required>
                 </div>
             </div>
@@ -53,7 +53,8 @@
             <div class="mb-3">
                 <label for="copies" class="form-label">Количество копий: <span class="text-danger">*</span></label>
                 <div class="col-2">
-                    <input type="number" name="copies" id="copies" class="form-control" min="1" max="500" value="1" required>
+                    <input type="number" name="copies" id="copies" class="form-control" min="1" max="500" value="1"
+                        required>
                 </div>
             </div>
 
@@ -89,7 +90,7 @@
     } else day = date.getDate();
 
     if (date.getMonth() + 1 < 10) {
-        month = "0" +(date.getMonth() + 1);
+        month = "0" + (date.getMonth() + 1);
     } else month = date.getMonth() + 1;
 
     year = date.getFullYear()
