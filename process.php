@@ -94,8 +94,10 @@
             return;
         }
 
-        // Получение id заказа для именования файла
+        //Подключение к БД
         $conn = getConn();
+
+        // Получение id заказа для именования файла
         $new_id = null;
         if ($conn != null) {
             $conn->query("SET information_schema_stats_expiry = 0"); //для обновления системной таблицы
@@ -111,17 +113,33 @@
 
         // Попытка копирования файла на сервер 
         // Временная папка string(45) "C:\Users\cogog\AppData\Local\Temp\php2D67.tmp"
-        if (!move_uploaded_file($file["tmp_name"], "./files/" . $new_id["AUTO_INCREMENT"] . "_" . basename($file["name"]))) {
+        $new_file_path = "./files/" . $new_id["AUTO_INCREMENT"] . "_" . basename($file["name"]);
+        if (!move_uploaded_file($file["tmp_name"], $new_file_path)) {
             $STATUS = "Ошибка";
             $MESSAGE = "Не удалось обработать файл на сервере";
             return;
         };
 
+        //Добавление данных в БД
+        try {
+            $stmt =  $conn->prepare("INSERT print_orders 
+                (customer_name, tel_num, document_name, print_format, copies, pickup_date)
+                VALUES  
+                (?, ?, ?, ?, ?, ?)");
 
+            $stmt->bindParam(1, $fio);
+            $stmt->bindParam(2, $tel);
+            $stmt->bindParam(3, $new_file_path);
+            $stmt->bindParam(4, $format);
+            $stmt->bindParam(5, $copies);
+            $stmt->bindParam(6, $date);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            $STATUS = "Ошибка";
+            $MESSAGE = $e->getMessage();
+            return;
+        }
 
-        //Добавить вставку в БД
-
-        var_dump($file["tmp_name"]);
         $STATUS = "Успех";
         $MESSAGE = "Данные добавлены. ID заявки: " . $new_id["AUTO_INCREMENT"];
     }
