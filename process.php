@@ -32,9 +32,9 @@
         $date = date("Y-m-d", strtotime($_POST["pickup_date"]));
 
         //Проверка файла:
-        if ($file["size"] > 20971520) {  //20 МБ
+        if ($file["size"] > 15728640) {  //15 МБ
             $STATUS = "Ошибка";
-            $MESSAGE = "Размер файла превышает максимально допустимый (20 МБ)";
+            $MESSAGE = "Размер файла превышает максимально допустимый (15 МБ)";
             return;
         } elseif (!in_array(strtolower($file["type"]), array(
             "application/msword",

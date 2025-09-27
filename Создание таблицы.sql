@@ -13,7 +13,7 @@ INSERT print_orders (customer_name, tel_num, document_name, print_format, copies
 VALUES (
 "Тестовый заказчик",
 "+375293086885",
-"1.txt",
+"/files/1.txt",
 "A4 ЧБ",
 1,
 "2025-09-29"
