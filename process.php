@@ -149,6 +149,9 @@
         isset($_POST["print_format"]) && isset($_POST["copies"]) && isset($_POST["pickup_date"]))) {
         $STATUS = "Ошибка";
         $MESSAGE = "Обязательные поля не заполненны";
+    } elseif ($_FILES["file"]["error"] != 0) {
+        $STATUS = "Ошибка";
+        $MESSAGE = "Не удалось загрузить файл";
     } else {
         process_data();
     }
